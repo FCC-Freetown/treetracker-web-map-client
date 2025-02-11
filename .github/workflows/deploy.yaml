@@ -21,6 +21,8 @@ env:
 
 jobs:
   deploy:
+    if: |
+      contains(github.repository, 'Greenstand')
     name: Deploy 
     runs-on: ubuntu-latest
     steps:
