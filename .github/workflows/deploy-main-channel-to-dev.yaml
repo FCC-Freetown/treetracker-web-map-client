@@ -14,7 +14,8 @@ jobs:
     name: Build Frontend Project
     runs-on: ubuntu-latest
     if: |
-      !contains(github.event.head_commit.message, 'skip-ci')
+      !contains(github.event.head_commit.message, 'skip-ci') &&
+      contains(github.repository, 'Greenstand')
     steps:
       - name: Validate git-tag input format
         run: |
