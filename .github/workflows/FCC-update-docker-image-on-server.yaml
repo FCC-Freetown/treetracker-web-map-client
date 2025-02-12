@@ -21,9 +21,9 @@ jobs:
           script: |
             echo "Current working directory:"
             pwd
-            
+
             # Absolute path to your docker-compose file on the Ubuntu server
-            COMPOSE_FILE="~/freetown/docker-compose.yaml"
+            COMPOSE_FILE="$HOME/freetown/docker-compose.yaml"
 
             echo "Updating Next.js service image tag in $COMPOSE_FILE"
             # This sed command replaces the image tag for the Next.js service.
@@ -35,7 +35,7 @@ jobs:
             cat "$COMPOSE_FILE"
 
             echo "Pulling the updated Next.js image..."
-            docker-compose -f "$COMPOSE_FILE" pull nextjs
+            docker compose -f "$COMPOSE_FILE" pull nextjs
 
             echo "Restarting the Next.js service..."
-            docker-compose -f "$COMPOSE_FILE" up -d nextjs
+            docker compose -f "$COMPOSE_FILE" up -d nextjs
