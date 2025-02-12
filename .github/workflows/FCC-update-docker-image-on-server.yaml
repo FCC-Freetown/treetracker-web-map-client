@@ -20,7 +20,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             # Absolute path to your docker-compose file on the Ubuntu server
-            COMPOSE_FILE="freetown/docker-compose.yml"
+            COMPOSE_FILE="~/freetown/docker-compose.yml"
 
             echo "Updating Next.js service image tag in $COMPOSE_FILE"
             # This sed command replaces the image tag for the Next.js service.
