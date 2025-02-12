@@ -1,0 +1,38 @@
+name: (FREETOWN) Update Next.js Service Image Tag in Docker Compose
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Enter the tag version (e.g., 1.2.3) for the Next.js service (without the "v")'
+        required: true
+
+jobs:
+  update-image-tag:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Update Next.js image tag on remote server and restart service
+        uses: appleboy/ssh-action@v0.1.9
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            # Absolute path to your docker-compose file on the Ubuntu server
+            COMPOSE_FILE="freetown/docker-compose.yml"
+
+            echo "Updating Next.js service image tag in $COMPOSE_FILE"
+            # This sed command replaces the image tag for the Next.js service.
+            # It expects a line like:
+            #   image: greenstand/treetracker-web-map-client:...
+            sed -i "s|\(image: greenstand/treetracker-web-map-client:\).*|\1${{ github.event.inputs.tag }}|" "$COMPOSE_FILE"
+
+            echo "Updated docker-compose file:"
+            cat "$COMPOSE_FILE"
+
+            echo "Pulling the updated Next.js image..."
+            docker-compose -f "$COMPOSE_FILE" pull nextjs
+
+            echo "Restarting the Next.js service..."
+            docker-compose -f "$COMPOSE_FILE" up -d nextjs
