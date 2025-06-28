@@ -29,7 +29,7 @@ jobs:
             # This sed command replaces the image tag for the Next.js service.
             # It expects a line like:
             #   image: greenstand/treetracker-web-map-client:...
-            sed -i "s|\(image: greenstand/treetracker-web-map-client:\).*|\1${{ github.event.inputs.tag }}|" "$COMPOSE_FILE"
+            sed -i "s|\(image: cdavies202/treetracker-web-map-client:\).*|\1${{ github.event.inputs.tag }}|" "$COMPOSE_FILE"
 
             echo "Updated docker-compose file:"
             cat "$COMPOSE_FILE"
