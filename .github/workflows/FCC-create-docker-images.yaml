@@ -32,4 +32,4 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: mohmin/${{ github.event.repository.name }}:${{ github.event.inputs.tag }}
+          tags: cdavies202/${{ github.event.repository.name }}:${{ github.event.inputs.tag }}
